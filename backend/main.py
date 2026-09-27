@@ -5,6 +5,7 @@ from collections import deque
 import hashlib
 import json
 import os
+import re
 import time
 import threading
 from typing import Literal
@@ -26,7 +27,7 @@ load_dotenv()
 
 app = FastAPI(
     title="AuraHealth CADSS API",
-    version="1.4.0",
+    version="1.5.0",
     description="Clinical decision-support backend for AuraHealth",
 )
 
@@ -914,6 +915,70 @@ class DrugSafetyRequest(BaseModel):
     drug_2: str
 
 
+# Common Pakistani / regional brand aliases.
+# These aliases are used only to translate a known brand name to an
+# active/generic ingredient name before querying openFDA.
+#
+# Important: DRAP's public registry is the authoritative place to verify
+# Pakistani registrations. AuraHealth does NOT treat this small alias table
+# as a complete Pakistani medicine database.
+PAKISTAN_BRAND_ALIASES = {
+    "panadol": "acetaminophen",
+    "calpol": "acetaminophen",
+    "brufen": "ibuprofen",
+    "disprin": "aspirin",
+    "ponstan": "mefenamic acid",
+    "flagyl": "metronidazole",
+    "augmentin": "amoxicillin and clavulanate potassium",
+    "amoxil": "amoxicillin",
+    "zithromax": "azithromycin",
+    "nexum": "esomeprazole magnesium",
+    "risek": "omeprazole",
+    "glucophage": "metformin hydrochloride",
+    "amaryl": "glimepiride",
+    "norvasc": "amlodipine besylate",
+    "concor": "bisoprolol fumarate",
+    "cozaar": "losartan potassium",
+    "zyrtec": "cetirizine hydrochloride",
+    "telfast": "fexofenadine hydrochloride",
+    "ventolin": "albuterol sulfate",
+}
+
+
+def _brand_key(value: str) -> str:
+    """Normalize a user-entered brand name for exact alias matching."""
+    cleaned = value.strip().lower()
+
+    # Keep the first textual medicine name while removing common strength /
+    # dosage-form text users often append, e.g. "Panadol 500mg tablet".
+    cleaned = re.sub(r"\b\d+(?:\.\d+)?\s*(?:mg|mcg|g|ml|iu|%)\b.*$", "", cleaned)
+    cleaned = re.sub(
+        r"\b(?:tablet|tablets|tab|tabs|capsule|capsules|cap|caps|syrup|"
+        r"suspension|injection|inj|cream|ointment|drops)\b.*$",
+        "",
+        cleaned,
+    )
+    cleaned = re.sub(r"[^a-z0-9+\- ]+", " ", cleaned)
+    cleaned = re.sub(r"\s+", " ", cleaned).strip()
+    return cleaned
+
+
+def resolve_local_brand_name(drug_name: str) -> tuple[str, bool]:
+    """
+    Resolve a known Pakistani/regional brand to a generic ingredient name.
+
+    Returns:
+        (lookup_name, was_brand_resolved)
+    """
+    key = _brand_key(drug_name)
+    generic = PAKISTAN_BRAND_ALIASES.get(key)
+
+    if generic:
+        return generic, True
+
+    return drug_name.strip(), False
+
+
 def get_fda_drug_label(drug_name: str):
     """
     Retrieve a matching FDA drug label.
@@ -982,8 +1047,18 @@ def check_drug_safety(data: DrugSafetyRequest):
         _request_fingerprint("drug-safety", drug_payload)
     )
 
+    resolved_1, brand_resolved_1 = resolve_local_brand_name(drug_1)
+    resolved_2, brand_resolved_2 = resolve_local_brand_name(drug_2)
+
+    # First try the user-entered name. If openFDA does not know that brand,
+    # retry with the resolved generic ingredient when we have a trusted alias.
     label_1 = get_fda_drug_label(drug_1)
+    if not label_1 and brand_resolved_1:
+        label_1 = get_fda_drug_label(resolved_1)
+
     label_2 = get_fda_drug_label(drug_2)
+    if not label_2 and brand_resolved_2:
+        label_2 = get_fda_drug_label(resolved_2)
 
     if not label_1 and not label_2:
         return {
@@ -991,15 +1066,19 @@ def check_drug_safety(data: DrugSafetyRequest):
             "drug_2": drug_2,
             "status": "Insufficient Data",
             "summary": (
-                "AuraHealth could not locate matching FDA labeling "
-                "for these medicine names."
+                "AuraHealth could not locate matching FDA labeling for these "
+                "medicine names or their resolved generic ingredients."
             ),
             "drug_1_found": False,
             "drug_2_found": False,
+            "drug_1_resolved_name": resolved_1 if brand_resolved_1 else "",
+            "drug_2_resolved_name": resolved_2 if brand_resolved_2 else "",
             "drug_1_interactions": "",
             "drug_2_interactions": "",
             "warnings": [
-                "Check the spelling or try the generic medicine names."
+                "Check the spelling or try the active/generic ingredient name.",
+                "For Pakistani brands, verify the exact product and ingredient "
+                "in DRAP's Registered Drugs Index before relying on a match.",
             ],
             "medical_notice": (
                 "Do not start, stop, combine, or change medicines based "
@@ -1038,6 +1117,7 @@ The following information was retrieved from FDA drug labeling.
 
 DRUG 1:
 Name entered: {drug_1}
+Resolved generic/active ingredient: {resolved_1 if brand_resolved_1 else "Not separately resolved"}
 FDA label found: {bool(label_1)}
 Drug interaction section:
 {interaction_1 or "No interaction section retrieved."}
@@ -1047,6 +1127,7 @@ Warnings:
 
 DRUG 2:
 Name entered: {drug_2}
+Resolved generic/active ingredient: {resolved_2 if brand_resolved_2 else "Not separately resolved"}
 FDA label found: {bool(label_2)}
 Drug interaction section:
 {interaction_2 or "No interaction section retrieved."}
@@ -1099,6 +1180,8 @@ Rules:
                 ),
                 "drug_1_found": bool(label_1),
                 "drug_2_found": bool(label_2),
+                "drug_1_resolved_name": resolved_1 if brand_resolved_1 else "",
+                "drug_2_resolved_name": resolved_2 if brand_resolved_2 else "",
                 "drug_1_interactions": interaction_1,
                 "drug_2_interactions": interaction_2,
                 "warnings": [],
@@ -1114,6 +1197,8 @@ Rules:
     result["drug_2"] = drug_2
     result["drug_1_found"] = bool(label_1)
     result["drug_2_found"] = bool(label_2)
+    result["drug_1_resolved_name"] = resolved_1 if brand_resolved_1 else ""
+    result["drug_2_resolved_name"] = resolved_2 if brand_resolved_2 else ""
 
     result["medical_notice"] = (
         "This feature summarizes available FDA labeling for educational "
