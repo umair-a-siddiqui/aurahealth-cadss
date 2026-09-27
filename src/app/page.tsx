@@ -266,21 +266,23 @@ export default function Home() {
 
             <NavLink href="#safety">Safety</NavLink>
 
+          </div>          <div className="flex items-center gap-2">
+            <a
+              href="/history"
+              className="group flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-4 py-2.5 text-xs font-medium text-white/80 transition hover:bg-white/[0.12]"
+            >
+              History
+              <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+            </a>
+
+            <a
+              href="/profile"
+              className="group flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-4 py-2.5 text-xs font-medium text-white/80 transition hover:bg-white/[0.12]"
+            >
+              Patient Profile
+              <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+            </a>
           </div>
-
-          <a
-
-            href="/profile"
-
-            className="group flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-4 py-2.5 text-xs font-medium text-white/80 transition hover:bg-white/[0.12]"
-
-          >
-
-            Patient Profile
-
-            <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-
-          </a>
 
         </div>
 

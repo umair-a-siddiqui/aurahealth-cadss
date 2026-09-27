@@ -12,10 +12,34 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
+  metadataBase: new URL("https://aurahealth-cadss.vercel.app"),
   title: "AuraHealth CADSS",
   description:
     "AI-assisted clinical decision support for medicines, symptoms, lab reports, nutrition, metabolic health and blood compatibility.",
+  openGraph: {
+    title: "AuraHealth CADSS",
+    description:
+      "AI-assisted clinical decision support for medicines, symptoms, lab reports, nutrition, metabolic health and blood compatibility.",
+    url: "https://aurahealth-cadss.vercel.app/",
+    siteName: "AuraHealth CADSS",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AuraHealth CADSS",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AuraHealth CADSS",
+    description:
+      "AI-assisted clinical decision support for medicines, symptoms, lab reports, nutrition, metabolic health and blood compatibility.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
