@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
 const BLOOD_TYPES = ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"];
 
 type Result = {
@@ -40,7 +43,7 @@ export default function BloodCompatibility() {
 
       const response = await fetch(
 
-        `http://127.0.0.1:8000/blood/compatibility?type=${encodeURIComponent(type)}`
+        `${API_BASE_URL}/blood/compatibility?type=${encodeURIComponent(type)}`
 
       );
 
@@ -48,7 +51,9 @@ export default function BloodCompatibility() {
 
         throw new Error("Unable to check blood compatibility.");
 
-      }      const data = await response.json();
+      }
+
+      const data = await response.json();
       setResult(data);
 
       try {

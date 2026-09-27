@@ -2,6 +2,9 @@
 
 import { ChangeEvent, useState } from "react";
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
 type TestResult = {
 
   test_name: string;
@@ -102,7 +105,7 @@ export default function LabReportPage() {
 
       const response = await fetch(
 
-        "http://127.0.0.1:8000/lab-report/analyze",
+        `${API_BASE_URL}/lab-report/analyze`,
 
         {
 
@@ -124,7 +127,9 @@ export default function LabReportPage() {
 
         );
 
-      }      setResult(data);
+      }
+
+      setResult(data);
 
       try {
         const historyKey = "aurahealth_history";

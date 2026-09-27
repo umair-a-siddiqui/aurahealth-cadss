@@ -2,6 +2,9 @@
 
 import { FormEvent, useState } from "react";
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
 type DrugSafetyResult = {
   status?: string;
 
@@ -67,7 +70,7 @@ export default function DrugSafetyPage() {
     try {
       const response = await fetch(
 
-        "http://127.0.0.1:8000/drug-safety/check",
+        `${API_BASE_URL}/drug-safety/check`,
 
         {
           method: "POST",
@@ -93,7 +96,9 @@ export default function DrugSafetyPage() {
           data.detail || "Could not complete the drug safety check."
 
         );
-      }      setResult(data);
+      }
+
+      setResult(data);
 
       try {
         const historyKey = "aurahealth_history";

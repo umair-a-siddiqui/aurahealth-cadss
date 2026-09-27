@@ -22,6 +22,9 @@ import {
   X,
 } from "lucide-react";
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
 type MedicineResult = {
   medicine_name: string;
   active_ingredients: string[];
@@ -94,7 +97,7 @@ export default function MedicineScanner() {
     formData.append("image", file);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/medicine/scan", {
+      const response = await fetch(`${API_BASE_URL}/medicine/scan`, {
         method: "POST",
         body: formData,
       });

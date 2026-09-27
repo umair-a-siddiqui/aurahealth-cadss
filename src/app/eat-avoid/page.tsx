@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
 type FoodItem = {
 
   food: string;
@@ -80,7 +83,7 @@ export default function EatAvoidPage() {
 
       const response = await fetch(
 
-        "http://127.0.0.1:8000/eat-avoid/analyze",
+        `${API_BASE_URL}/eat-avoid/analyze`,
 
         {
 
@@ -120,7 +123,9 @@ export default function EatAvoidPage() {
 
         );
 
-      }      setResult(data);
+      }
+
+      setResult(data);
 
       try {
         const historyKey = "aurahealth_history";

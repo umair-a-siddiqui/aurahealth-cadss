@@ -2,6 +2,9 @@
 
 import { FormEvent, useState } from "react";
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
 type TriageResult = {
   urgency_level?: string;
   urgency_title?: string;
@@ -42,7 +45,7 @@ export default function TriagePage() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/triage/analyze",
+        `${API_BASE_URL}/triage/analyze`,
         {
           method: "POST",
           headers: {
