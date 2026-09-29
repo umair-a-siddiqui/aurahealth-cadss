@@ -188,7 +188,7 @@ export default function Home() {
 
         transition={{ duration: 0.7 }}
 
-        className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-[#082a3a]/90 backdrop-blur-2xl"
+        className="fixed left-0 right-0 top-0 z-50 transform-gpu border-b border-white/10 bg-[#082a3a]/90 backdrop-blur-2xl"
 
       >
 
@@ -218,7 +218,7 @@ export default function Home() {
 
                 }}
 
-                className="absolute inset-[-5px] rounded-[18px] border border-[#5ee4cf]/40"
+                className="absolute inset-[-5px] transform-gpu will-change-transform rounded-[18px] border border-[#5ee4cf]/40"
 
               />
 
@@ -240,7 +240,7 @@ export default function Home() {
 
                   transition={{ duration: 1.6, repeat: Infinity }}
 
-                  className="h-1.5 w-1.5 rounded-full bg-[#5ee4cf]"
+                  className="h-1.5 w-1.5 will-change-opacity rounded-full bg-[#5ee4cf]"
 
                 />
 
@@ -336,7 +336,7 @@ export default function Home() {
 
                 transition={{ duration: 1.7, repeat: Infinity }}
 
-                className="h-1.5 w-1.5 rounded-full bg-[#6ce7d1]"
+                className="h-1.5 w-1.5 transform-gpu will-change-transform rounded-full bg-[#6ce7d1]"
 
               />
 
@@ -432,7 +432,7 @@ export default function Home() {
 
             transition={{ duration: 1, delay: 0.2 }}
 
-            className="relative mx-auto w-full max-w-[650px]"
+            className="relative mx-auto w-full max-w-[650px] transform-gpu"
 
           >
 
@@ -654,7 +654,7 @@ export default function Home() {
 
               transition={{ duration: 1.4, repeat: Infinity }}
 
-              className="h-2 w-2 rounded-full bg-[#28cbb4]"
+              className="h-2 w-2 will-change-opacity rounded-full bg-[#28cbb4]"
 
             />
 
@@ -924,7 +924,7 @@ function ClinicalMonitor() {
 
   return (
 
-    <div className="relative mx-auto min-h-[570px] w-full">
+    <div className="relative mx-auto min-h-[570px] w-full transform-gpu">
 
       {/* soft ambient hospital glow */}
 
@@ -946,7 +946,7 @@ function ClinicalMonitor() {
 
         }}
 
-        className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#5fe1d0]/20 blur-[100px]"
+        className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 transform-gpu will-change-transform rounded-full bg-[#5fe1d0]/20 blur-[100px]"
 
       />
 
@@ -966,7 +966,7 @@ function ClinicalMonitor() {
 
         }}
 
-        className="absolute left-1/2 top-1/2 w-[90%] max-w-[540px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[30px] border border-white/15 bg-[#0b3542]/70 p-6 shadow-[0_35px_100px_rgba(0,0,0,.22)] backdrop-blur-2xl"
+        className="absolute left-1/2 top-1/2 w-[90%] max-w-[540px] -translate-x-1/2 -translate-y-1/2 transform-gpu will-change-transform overflow-hidden rounded-[30px] border border-white/15 bg-[#0b3542]/70 p-6 shadow-[0_35px_100px_rgba(0,0,0,.22)] backdrop-blur-2xl"
 
       >
 
@@ -996,7 +996,7 @@ function ClinicalMonitor() {
 
               transition={{ duration: 1.5, repeat: Infinity }}
 
-              className="h-1.5 w-1.5 rounded-full bg-[#5de0ca]"
+              className="h-1.5 w-1.5 will-change-opacity rounded-full bg-[#5de0ca]"
 
             />
 
@@ -1050,7 +1050,7 @@ function ClinicalMonitor() {
 
             }}
 
-            className="relative z-10 flex h-[105px] w-[105px] items-center justify-center rounded-full border border-[#6be1d0]/25 bg-[#51d6c0]/[0.08]"
+            className="relative z-10 flex h-[105px] w-[105px] transform-gpu will-change-transform items-center justify-center rounded-full border border-[#6be1d0]/25 bg-[#51d6c0]/[0.08]"
 
           >
 
@@ -1072,7 +1072,7 @@ function ClinicalMonitor() {
 
               }}
 
-              className="absolute inset-[-18px] rounded-full border border-[#5bdac6]/20"
+              className="absolute inset-[-18px] transform-gpu will-change-transform rounded-full border border-[#5bdac6]/20"
 
             />
 
@@ -1138,7 +1138,7 @@ function ClinicalMonitor() {
 
             }}
 
-            className="absolute left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-[#68e2d1]/60 to-transparent"
+            className="absolute left-[8%] right-[8%] h-px transform-gpu will-change-transform bg-gradient-to-r from-transparent via-[#68e2d1]/60 to-transparent"
 
           />
 
@@ -1276,7 +1276,7 @@ function ClinicalToolCard({
 
       }}
 
-      className={`group relative min-h-[330px] overflow-hidden rounded-[26px] border border-[#dce9ec] bg-white p-7 shadow-[0_12px_40px_rgba(23,72,87,.055)] transition-colors duration-300 hover:border-[#a8ded6] ${
+      className={`group relative min-h-[330px] transform-gpu overflow-hidden rounded-[26px] border border-[#dce9ec] bg-white p-7 shadow-[0_12px_40px_rgba(23,72,87,.055)] transition-colors duration-300 hover:border-[#a8ded6] ${
 
         index === 6 ? "xl:col-span-3 xl:min-h-[285px]" : ""
 
@@ -1532,7 +1532,7 @@ function ClinicalHeroBackground() {
 
         }}
 
-        className="absolute -left-40 top-20 h-[500px] w-[500px] rounded-full bg-[#4cd8c3]/10 blur-[130px]"
+        className="absolute -left-40 top-20 h-[500px] w-[500px] transform-gpu will-change-transform rounded-full bg-[#4cd8c3]/10 blur-[130px]"
 
       />
 
@@ -1554,7 +1554,7 @@ function ClinicalHeroBackground() {
 
         }}
 
-        className="absolute right-[-150px] top-[25%] h-[520px] w-[520px] rounded-full bg-[#62cfe4]/10 blur-[140px]"
+        className="absolute right-[-150px] top-[25%] h-[520px] w-[520px] transform-gpu will-change-transform rounded-full bg-[#62cfe4]/10 blur-[140px]"
 
       />
 
@@ -1620,7 +1620,7 @@ function ClinicalHeroBackground() {
 
           }}
 
-          className="absolute h-1.5 w-1.5 rounded-full bg-[#9ce9df]"
+          className="absolute h-1.5 w-1.5 transform-gpu will-change-transform rounded-full bg-[#9ce9df]"
 
         />
 
@@ -1688,7 +1688,7 @@ function ECG() {
 
       }}
 
-      className="flex w-[200%]"
+      className="flex w-[200%] transform-gpu will-change-transform"
 
     >
 
@@ -1744,7 +1744,7 @@ function DarkECG() {
 
       }}
 
-      className="flex w-[200%]"
+      className="flex w-[200%] transform-gpu will-change-transform"
 
     >
 
@@ -1880,7 +1880,7 @@ function SystemMetric({
 
               transition={{ duration: 1.5, repeat: Infinity }}
 
-              className="h-1.5 w-1.5 rounded-full bg-[#2bc6ae]"
+              className="h-1.5 w-1.5 will-change-opacity rounded-full bg-[#2bc6ae]"
 
             />
 
@@ -1944,7 +1944,7 @@ function FloatingClinicalIcon({
 
       }}
 
-      className={`absolute ${position} flex h-9 w-9 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.04]`}
+      className={`absolute ${position} flex h-9 w-9 transform-gpu will-change-transform items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.04]`}
 
     >
 
@@ -2048,7 +2048,7 @@ function FloatingPanel({
 
       }}
 
-      className={`absolute hidden rounded-xl border border-white/10 bg-[#0b3542]/80 px-4 py-3 shadow-[0_15px_40px_rgba(0,0,0,.14)] backdrop-blur-xl sm:block ${className}`}
+      className={`absolute hidden transform-gpu will-change-transform rounded-xl border border-white/10 bg-[#0b3542]/80 px-4 py-3 shadow-[0_15px_40px_rgba(0,0,0,.14)] backdrop-blur-xl sm:block ${className}`}
 
     >
 
