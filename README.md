@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# 🩺 AuraHealth CADSS
 
-First, run the development server:
+### AI-Assisted Clinical Decision Support System
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**One intelligent health platform. Seven integrated clinical tools.**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br/>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+[![Live Demo](https://img.shields.io/badge/🌐_LIVE_DEMO-00BFA6?style=for-the-badge)](https://aurahealth-cadss.vercel.app/)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi)
+![Gemini](https://img.shields.io/badge/Google_Gemini-AI-4285F4?style=for-the-badge&logo=google)
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<br/>
 
-## Learn More
+> **Understand your health. Make informed decisions.**
 
-To learn more about Next.js, take a look at the following resources:
+</div>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ✨ About AuraHealth
 
-## Deploy on Vercel
+**AuraHealth CADSS** is an AI-assisted clinical decision support platform designed to make health information easier to understand.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+It brings together **seven integrated health tools** for medicines, symptoms, laboratory reports, nutrition, metabolic health, and blood compatibility in one modern clinical workspace.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+AuraHealth combines **AI-assisted analysis, deterministic medical logic, structured data, and safety-focused guidance** while clearly remaining a decision-support platform rather than a replacement for professional healthcare.
+
+---
+
+## 🚀 Live Application
+
+### 🌐 [Open AuraHealth CADSS](https://aurahealth-cadss.vercel.app/)
+
+```text
+Frontend → Vercel
+Backend  → Render
+AI       → Google Gemini
+Drug Data → openFDA
