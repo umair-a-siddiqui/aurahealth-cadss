@@ -1,3 +1,14 @@
+## 🖥️ Project Preview
+
+### Home Dashboard
+![AuraHealth Home](YOUR_IMAGE_LINK)
+
+### Clinical Tools
+![AuraHealth Tools](YOUR_IMAGE_LINK)
+
+### Lab Report AI
+![AuraHealth Lab Report](YOUR_IMAGE_LINK)
+
 <div align="center">
 
 # 🩺 AuraHealth CADSS
